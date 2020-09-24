@@ -1,0 +1,19 @@
+{
+  "name": "nodefun",
+  "version": "1.0.0",
+  "description": "Review of Node and Express",
+  "main": "server/server.js",
+  "scripts": {
+    "nuke": "rimraf barcodes.csv",
+    "start": "npm run nuke && node server/server.js"
+  },
+  "author": "Pawel Jaskolski",
+  "license": "ISC",
+  "dependencies": {
+    "csv-parser": "^2.3.3",
+    "fast-csv": "^4.3.2",
+    "random-words": "^1.1.1",
+    "request": "^2.88.2",
+    "rimraf": "^3.0.2"
+  }
+}

@@ -1,0 +1,31 @@
+const { writeToPath } = require('@fast-csv/format');
+const path = `./barcodes.csv`;
+const options = { headers: true, quoteColumns: true };
+
+// =================== WORKS ========================
+
+// function which creates a 11 digit code
+function generate(n) {
+    var add = 1, max = 12 - add;   // 12 is the min safe number Math.random() can generate without it starting to pad the end with zeros. 
+    if (n > max) {
+        return generate(max) + generate(n - max);
+    }
+    max = Math.pow(10, n + add);
+    var min = max / 10;
+    var number = Math.floor(Math.random() * (max - min + 1)) + min;
+    return ("" + number).substring(add);
+}
+
+// crates a chosen amount of 11 digit codes (unsanitized for dubs, might have 10% repeats - needs anti-repeat logic)
+let barcodes = []
+for (let i = 0; i < 10; i++) {
+    const barcode = generate(11)
+    barcodes.push({ barcode })
+}
+
+
+// writes barcodes to CSV file
+writeToPath(path, barcodes, options)
+    .on('error', err => console.error(err))
+    .on('finish', () => console.log('Done writing.'));
+// =================== END WORKS ========================
